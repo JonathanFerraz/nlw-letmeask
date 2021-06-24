@@ -1,9 +1,9 @@
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import { ThemeProvider } from 'styled-components';
 
 import { AuthContextProvider } from './context/AuthContext';
-import { Login, NewRoom } from './pages';
+import { Login, NewRoom, Room } from './pages';
 import GlobalStyles from './styles/GlobalStyles';
 import defaultTheme from './styles/themes/defaultTheme';
 
@@ -13,8 +13,11 @@ function App() {
       <AuthContextProvider>
         <ThemeProvider theme={defaultTheme}>
           <GlobalStyles />
-          <Route path={'/'} exact component={Login}></Route>
-          <Route path={'/rooms/new'} component={NewRoom}></Route>
+          <Switch>
+            <Route path={'/'} exact component={Login}></Route>
+            <Route path={'/rooms/new'} exact component={NewRoom}></Route>
+            <Route path={'/rooms/:id'} component={Room}></Route>
+          </Switch>
         </ThemeProvider>
       </AuthContextProvider>
     </BrowserRouter>
