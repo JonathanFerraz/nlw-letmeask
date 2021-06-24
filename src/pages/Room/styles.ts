@@ -24,6 +24,8 @@ export const Main = styled.div`
   margin: 0 auto;
 
   form {
+    margin-bottom: 2rem;
+
     textarea {
       width: 100%;
       border-radius: 8px;

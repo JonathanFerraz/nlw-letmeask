@@ -31,8 +31,10 @@ export const Login: React.FC = () => {
 
   const handleJoinRoom = async (event: FormEvent) => {
     event.preventDefault();
+    setIsLoading(true);
 
     if (roomCode.trim() === '') {
+      setIsLoading(false);
       return;
     }
 
@@ -40,9 +42,11 @@ export const Login: React.FC = () => {
 
     if (!roomRef.exists()) {
       notify();
+      setIsLoading(false);
       return;
     }
 
+    setIsLoading(false);
     redirect(`/rooms/${roomCode}`);
   };
 

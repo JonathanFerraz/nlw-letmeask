@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 
 import logoImg from '../../assets/icons/logo.svg';
 import { Button, Img, RoomCode } from '../../components';
+import Question from '../../components/Question';
 import { useAuth } from '../../hooks/useAuth';
 import { database } from '../../services/firebase';
 import { PageRoom, Main, RoomTitle } from './styles';
@@ -21,7 +22,7 @@ type FirebaseQuestions = Record<
   }
 >;
 
-type Question = {
+type QuestionProps = {
   id: string;
   author: {
     name: string;
@@ -38,7 +39,7 @@ type RoomParams = {
 
 export const Room: React.FC = () => {
   const [newQuestion, setNewQuestion] = useState<string>('');
-  const [questions, setQuestions] = useState<Question[]>([]);
+  const [questions, setQuestions] = useState<QuestionProps[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [title, setTitle] = useState();
   const { user } = useAuth();
@@ -155,6 +156,15 @@ export const Room: React.FC = () => {
             </Button>
           </div>
         </form>
+        {questions.map(question => {
+          return (
+            <Question
+              key={question.id}
+              content={question.content}
+              author={question.author}
+            />
+          );
+        })}
       </Main>
     </PageRoom>
   );
