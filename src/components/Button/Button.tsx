@@ -1,12 +1,13 @@
 import React, { ButtonHTMLAttributes } from 'react';
 
-import { ButtonRipple } from './styles';
+import { ButtonRipple, CircleProgressCustom } from './styles';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: any;
   color?: string;
   style?: any;
   loading?: boolean;
+  loadingMessage?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -15,6 +16,7 @@ export const Button: React.FC<ButtonProps> = ({
   children,
   disabled,
   loading = false as any,
+  loadingMessage,
   style,
   ...rest
 }) => {
@@ -31,7 +33,24 @@ export const Button: React.FC<ButtonProps> = ({
         type={'button'}
         {...rest}
       >
-        {children}
+        {loading && loadingMessage ? (
+          <>
+            {loadingMessage}
+            <div
+              style={{
+                position: 'absolute',
+                width: '100%',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+            >
+              <CircleProgressCustom size={30} />
+            </div>
+          </>
+        ) : (
+          children
+        )}
       </ButtonRipple>
     </>
   );
